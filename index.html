@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1em 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a.active {
+            color: #ffa500; /* Highlight color for active link */
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .landing, .about, .projects {
+            padding: 2em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Additional styles for smooth appearance */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('landing', this)">Home</a></li>
+                <li><a href="#" onclick="showSection('about', this)">About Me</a></li>
+                <li><a href="#" onclick="showSection('projects', this)">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="margin-top: 60px;">
+        <section id="landing" class="landing fade-in visible">
+            <h1>Welcome to My Portfolio</h1>
+            <p>I am a passionate developer.</p>
+        </section>
+
+        <section id="about" class="about fade-in hidden">
+            <h2>About Me</h2>
+            <p>Welcome! I am a web developer with a passion for creating beautiful and functional websites.</p>
+        </section>
+
+        <section id="projects" class="projects fade-in hidden">
+            <h2>My Projects</h2>
+            <ul>
+                <li><a href="#">Project 1</a></li>
+                <li><a href="#">Project 2</a></li>
+                <li><a href="#">Project 3</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Portfolio</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId, link) {
+            const sections = document.querySelectorAll('main > section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.remove('hidden');
+                    section.classList.add('visible');
+                } else {
+                    section.classList.remove('visible');
+                    section.classList.add('hidden');
+                }
+            });
+
+            // Update active link
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(navLink => navLink.classList.remove('active'));
+            link.classList.add('active');
+        }
+
+        // Automatically highlight the active section on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('main > section');
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+
+            sections.forEach(section => {
+                if (section.offsetTop <= scrollPos && section.offsetTop + section.offsetHeight > scrollPos) {
+                    const id = section.getAttribute('id');
+                    const navLinks = document.querySelectorAll('nav a');
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
