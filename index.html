@@ -126,13 +126,13 @@
                 }
             });
 
-            // Update active link
+          
             const navLinks = document.querySelectorAll('nav a');
             navLinks.forEach(navLink => navLink.classList.remove('active'));
             link.classList.add('active');
         }
 
-        // Automatically highlight the active section on scroll
+        // Highlight the active section on scroll
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('main > section');
             const scrollPos = window.scrollY + window.innerHeight / 2;
